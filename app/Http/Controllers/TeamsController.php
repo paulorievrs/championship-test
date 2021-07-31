@@ -28,6 +28,7 @@ class TeamsController extends Controller
             if($matchesCount < $max) {
                 unset($team->home_matches);
                 unset($team->guest_matches);
+                $team->matchesCount = $matchesCount;
                 $filteredTeams[] = $team;
             }
         }
