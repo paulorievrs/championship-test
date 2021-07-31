@@ -10,11 +10,7 @@ use Tests\TestCase;
 class TeamsControllerTest extends TestCase
 {
     use WithFaker;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function test_get_select_teams()
     {
         $response = $this->get('/teams/select');
@@ -25,5 +21,11 @@ class TeamsControllerTest extends TestCase
             $this->assertTrue($team['matchesCount'] < 37);
         }
 
+    }
+
+    public function test_get_teams_table()
+    {
+        $response = $this->get('/teams');
+        $response->assertStatus(200);
     }
 }
