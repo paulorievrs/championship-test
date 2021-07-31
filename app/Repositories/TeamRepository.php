@@ -60,21 +60,17 @@ class TeamRepository
 
     public function getTeamPoints(Team $team)
     {
-        $victories = $this->getTeamVictories($team)->count();
-        $draws     = $this->getTeamDraws($team)->count();
+        $victories = $this->getTeamVictories($team);
+        $draws     = $this->getTeamDraws($team);
 
         return ( ($victories * 3) + $draws );
     }
 
     private function getTeamMatchesResultsByOperator(string $operator, Team $team)
     {
-        $home_matches = $team->home_matches->where('home_team_score', $operator, 'guest_team_score');
-        $guest_matches = $team->guest_matches->where('guest_team_score', $operator, 'home_team_score');
-        if($operator === MatchesResultsOperators::DEFEAT) {
-            dump($home_matches, $guest_matches);
-
-        }
-        return $home_matches->merge($guest_matches);
+        $home_matches = $team->home_matches()->whereColumn('home_team_score', $operator, 'guest_team_score')->get()->toArray();
+        $guest_matches = $team->guest_matches()->whereColumn('guest_team_score', $operator, 'home_team_score')->get()->toArray();
+        return sizeof(array_merge($home_matches, $guest_matches));
     }
 
     public function find(int $id)

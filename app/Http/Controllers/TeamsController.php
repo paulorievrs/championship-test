@@ -34,14 +34,16 @@ class TeamsController extends Controller
 
     public function getTeamsTable(): array
     {
+//        dd( $this->repository->getTeamDefeats($this->repository->find(2)));
+
         $teams = $this->repository->getAllTeams();
 
         foreach ($teams as $team) {
-            $team->defeats = $this->repository->getTeamDefeats($team)->count();
+            $team->defeats = $this->repository->getTeamDefeats($team);
 
-            $team->victories = $this->repository->getTeamVictories($team)->count();
+            $team->victories = $this->repository->getTeamVictories($team);
             $team->matches = $this->repository->getTeamMatchesCount($team);
-            $team->draws = $this->repository->getTeamDraws($team)->count();
+            $team->draws = $this->repository->getTeamDraws($team);
 
             $team->goalsFor = $this->repository->getGoalsFor($team);
             $team->goalsTaken = $this->repository->getGoalsTaken($team);
