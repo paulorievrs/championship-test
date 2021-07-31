@@ -41,8 +41,8 @@ const createMatch = () => {
         headers: {
             "X-CSRF-TOKEN": csrf
         },
-        success: (res) => {
-           console.log(res);
+        success: () => {
+            toastr.success("Confronto inserido com sucesso");
         },
         error: (err) => {
             const errors = JSON.parse(err.responseText).errors;
