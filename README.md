@@ -63,9 +63,13 @@ Rode o projeto:
 ``
   $ php artisan serve
 ``
-
 Acesse a aplicação em: http://localhost:8000
 
+Se quiser verificar se está tudo rodando corretamente pode utilizar o comando abaixo para rodas testes:
+
+``
+    $ php artisan test --testsuite=Feature
+``
 
 ## Vídeo
 
