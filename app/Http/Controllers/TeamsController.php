@@ -34,7 +34,6 @@ class TeamsController extends Controller
 
     public function getTeamsTable(): array
     {
-//        dd( $this->repository->getTeamDefeats($this->repository->find(2)));
 
         $teams = $this->repository->getAllTeams();
 
@@ -53,10 +52,29 @@ class TeamsController extends Controller
 
         $teams = $teams->toArray();
 
-        usort($teams, function ($item1, $item2) {
-            return $item2['points'] <=> $item1['points'];
-        });
-
+        usort($teams, fn ($item1, $item2): int =>
+            [
+                $item2['points'],
+                $item2['matches'],
+                $item2['victories'],
+                $item2['draws'],
+                $item2['defeats'],
+                $item2['goalsFor'],
+                $item2['goalsTaken'],
+                $item2['goalDifference']
+            ]
+            <=>
+            [
+                $item1['points'],
+                $item1['matches'],
+                $item1['victories'],
+                $item1['draws'],
+                $item1['defeats'],
+                $item1['goalsFor'],
+                $item1['goalsTaken'],
+                $item1['goalDifference']
+            ]
+        );
 
         return [
             'teams' => $teams
