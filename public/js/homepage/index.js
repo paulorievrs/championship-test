@@ -95,26 +95,42 @@ const onChangeTeam = (item) => {
 
 const onlyNumbers = (item) => item.value = item.value.replace(/[^0-9]/g, '');
 
+const textColorToTable = (index) => {
+
+    if (index === 1) {
+        return 'text-success';
+    } else if (index >= 2 && index <= 7) {
+        return 'text-primary';
+    } else if (index >= 8 && index <= 14) {
+        return 'text';
+    } else if(index >= 17) {
+        return 'text-danger';
+    } else {
+        return 'text-warning';
+    }
+
+}
+
 const getTableTeams = () => {
     $.ajax({
         url: 'teams',
         type: 'GET',
         dataType: 'json',
         success: function(res) {
-            const teams = res.teams.map((team, index) => `
-                <tr>
-                   <td>${index + 1}º</td>
-                   <td>${team.name} - ${team.abbreviation}</td>
-                   <td>${team.points}</td>
-                   <td>${team.matches}</td>
-                   <td>${team.victories}</td>
-                   <td>${team.draws}</td>
-                   <td>${team.defeats}</td>
-                   <td>${team.goalsFor}</td>
-                   <td>${team.goalsTaken}</td>
-                   <td>${team.goalDifference}</td>
-                </tr>
-            `);
+            const teams = res.teams.map((team, index) =>`
+                    <tr>
+                       <td class="${textColorToTable(index + 1)}">${index + 1}º</td>
+                       <td>${team.name} - ${team.abbreviation}</td>
+                       <td>${team.points}</td>
+                       <td>${team.matches}</td>
+                       <td>${team.victories}</td>
+                       <td>${team.draws}</td>
+                       <td>${team.defeats}</td>
+                       <td>${team.goalsFor}</td>
+                       <td>${team.goalsTaken}</td>
+                       <td>${team.goalDifference}</td>
+                    </tr>
+                `);
             championshipTableTBody.html(teams);
         }
     });
