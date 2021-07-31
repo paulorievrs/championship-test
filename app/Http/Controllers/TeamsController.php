@@ -11,16 +11,26 @@ class TeamsController extends Controller
         $this->repository = $repository;
     }
 
+    /**
+     * Get all teams filtering them with the maximum quantity of the matches that they can have
+     * @return array[]
+     */
     public function getTeams(): array
     {
         $teams = $this->repository->getAllTeams();
-        $teams = $this->removeTeamsThatHasMaximumMatches($teams);
+        $teams = $this->getTeamsThatHaventReachTheLimitOfMatches($teams);
         return [
             'teams' => $teams
         ];
     }
 
-    private function removeTeamsThatHasMaximumMatches(object $teams, int $max = 38): array
+    /**
+     * Get the teams that only haven't reached the limit of matches
+     * @param object $teams
+     * @param int $max
+     * @return array
+     */
+    private function getTeamsThatHaventReachTheLimitOfMatches(object $teams, int $max = 38): array
     {
         $filteredTeams = [];
         foreach ($teams as $team) {
@@ -36,6 +46,10 @@ class TeamsController extends Controller
         return $filteredTeams;
     }
 
+    /**
+     * Get the teams for the main table with their own statistics and sorting them
+     * @return array
+     */
     public function getTeamsTable(): array
     {
 

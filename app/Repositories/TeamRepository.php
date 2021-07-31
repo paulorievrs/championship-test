@@ -11,31 +11,60 @@ class TeamRepository
         $this->model = $model;
     }
 
+    /**
+     * Get all the teams from the database
+     * @return Team[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function getAllTeams()
     {
         return $this->model->all();
     }
 
+    /**
+     * Get how many matches the team played
+     * @param Team $team
+     * @return mixed
+     */
     public function getTeamMatchesCount(Team $team)
     {
         return $team->matches()->count();
     }
 
-    public function getTeamVictories(Team $team)
+    /**
+     * Get how many victories the team have
+     * @param Team $team
+     * @return int
+     */
+    public function getTeamVictories(Team $team): int
     {
-        return $this->getTeamMatchesResultsByOperator(MatchesResultsOperators::WIN, $team);
+        return $this->getTeamMatchesResultsByOperator($team, MatchesResultsOperators::WIN);
     }
 
-    public function getTeamDraws(Team $team)
+    /**
+     * Get how many draws the team have
+     * @param Team $team
+     * @return int
+     */
+    public function getTeamDraws(Team $team): int
     {
-        return $this->getTeamMatchesResultsByOperator(MatchesResultsOperators::DRAW, $team);
+        return $this->getTeamMatchesResultsByOperator($team, MatchesResultsOperators::DRAW);
     }
 
-    public function getTeamDefeats(Team $team)
+    /**
+     * Get how many defeats the team have
+     * @param Team $team
+     * @return int
+     */
+    public function getTeamDefeats(Team $team): int
     {
-        return $this->getTeamMatchesResultsByOperator(MatchesResultsOperators::DEFEAT, $team);
+        return $this->getTeamMatchesResultsByOperator($team, MatchesResultsOperators::DEFEAT);
     }
 
+    /**
+     * Get how many goals for the team made
+     * @param Team $team
+     * @return mixed
+     */
     public function getGoalsFor(Team $team)
     {
         $home_matches_goals = $team->home_matches->sum('home_team_score');
@@ -43,6 +72,11 @@ class TeamRepository
         return $home_matches_goals + $guest_matches_goals;
     }
 
+    /**
+     * Get how many goals the team has taken
+     * @param Team $team
+     * @return mixed
+     */
     public function getGoalsTaken(Team $team)
     {
         $home_matches_goals = $team->home_matches->sum('guest_team_score');
@@ -50,6 +84,11 @@ class TeamRepository
         return $home_matches_goals + $guest_matches_goals;
     }
 
+    /**
+     * Get the goal difference from the teams
+     * @param Team $team
+     * @return int
+     */
     public function getTeamGoalDifference(Team $team): int
     {
         $scored = $this->getGoalsFor($team);
@@ -58,6 +97,11 @@ class TeamRepository
         return $scored - $taken;
     }
 
+    /**
+     * Get how many points the team have
+     * @param Team $team
+     * @return float|int
+     */
     public function getTeamPoints(Team $team)
     {
         $victories = $this->getTeamVictories($team);
@@ -66,7 +110,17 @@ class TeamRepository
         return ( ($victories * 3) + $draws );
     }
 
-    private function getTeamMatchesResultsByOperator(string $operator, Team $team): int
+    /**
+     * Get the matches with a comparative operator
+     * If the operator is >, will return the win matches
+     * If the operator is <, will return the loose matches
+     * If the operator is =, will return the draw matches
+     * Can be found this Enum at Enums/MatchesResultsOperators
+     * @param string $operator
+     * @param Team $team
+     * @return int
+     */
+    private function getTeamMatchesResultsByOperator(Team $team, string $operator = MatchesResultsOperators::WIN): int
     {
         $home_matches = $team->home_matches()
                         ->whereColumn('home_team_score', $operator, 'guest_team_score')
