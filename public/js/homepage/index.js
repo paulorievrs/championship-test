@@ -121,14 +121,14 @@ const getTableTeams = () => {
                     <tr>
                        <td class="${textColorToTable(index + 1)}">${index + 1}º</td>
                        <td>${team.name} - ${team.abbreviation}</td>
-                       <td>${team.points}</td>
-                       <td>${team.matches}</td>
-                       <td>${team.victories}</td>
-                       <td>${team.draws}</td>
-                       <td>${team.defeats}</td>
-                       <td>${team.goalsFor}</td>
-                       <td>${team.goalsTaken}</td>
-                       <td>${team.goalDifference}</td>
+                       <td><strong>${team.points}</strong></td>
+                       <td class="text-secondary">${team.matches}</td>
+                       <td class="text-secondary">${team.victories}</td>
+                       <td class="text-secondary">${team.draws}</td>
+                       <td class="text-secondary">${team.defeats}</td>
+                       <td class="text-secondary">${team.goalsFor}</td>
+                       <td class="text-secondary">${team.goalsTaken}</td>
+                       <td class="text-secondary">${team.goalDifference}</td>
                     </tr>
                 `);
             championshipTableTBody.html(teams);

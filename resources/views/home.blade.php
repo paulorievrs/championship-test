@@ -4,7 +4,7 @@
 
 <div class="container pt-2">
     <div class="d-flex flex-row justify-content-between align-items-center">
-        <h1>TABELA</h1>
+        <h1 class="table-title">TABELA</h1>
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#insert-modal">
             Inserir confronto
         </button>
@@ -13,16 +13,16 @@
     <table id="championship-table" class="table">
         <thead>
         <tr>
-            <th scope="col"><small>Posição</small></th>
-            <th scope="col"></th>
-            <th scope="col"><small>PTS</small></th>
-            <th scope="col"><small>J</small></th>
-            <th scope="col"><small>V</small></th>
-            <th scope="col"><small>E</small></th>
-            <th scope="col"><small>D</small></th>
-            <th scope="col"><small>GP</small></th>
-            <th scope="col"><small>GC</small></th>
-            <th scope="col"><small>SG</small></th>
+            <th class="col-md-1"><small>Posição</small></th>
+            <th class="col-md-4"></th>
+            <th class="col"><small>PTS</small></th>
+            <th class="col"><small>J</small></th>
+            <th class="col"><small>V</small></th>
+            <th class="col"><small>E</small></th>
+            <th class="col"><small>D</small></th>
+            <th class="col"><small>GP</small></th>
+            <th class="col"><small>GC</small></th>
+            <th class="col"><small>SG</small></th>
         </tr>
         </thead>
         <tbody>

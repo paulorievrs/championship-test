@@ -46,7 +46,13 @@ Gere uma key para a aplicação:
    $ php artisan key:generate
 ``
 
-Popule o banco de dados com dados de times aleátorios
+Faça a geração do banco de dados com:
+
+``
+    $ php artisan migrate
+``
+
+Popule o banco de dados com dados de times com nomes aleátorios
 
 ``
     $ php artisan db:seed
