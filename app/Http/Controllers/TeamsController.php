@@ -51,6 +51,13 @@ class TeamsController extends Controller
             $team->points = $this->repository->getTeamPoints($team);
         }
 
+        $teams = $teams->toArray();
+
+        usort($teams, function ($item1, $item2) {
+            return $item2['points'] <=> $item1['points'];
+        });
+
+
         return [
             'teams' => $teams
         ];

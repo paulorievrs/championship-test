@@ -66,10 +66,18 @@ class TeamRepository
         return ( ($victories * 3) + $draws );
     }
 
-    private function getTeamMatchesResultsByOperator(string $operator, Team $team)
+    private function getTeamMatchesResultsByOperator(string $operator, Team $team): int
     {
-        $home_matches = $team->home_matches()->whereColumn('home_team_score', $operator, 'guest_team_score')->get()->toArray();
-        $guest_matches = $team->guest_matches()->whereColumn('guest_team_score', $operator, 'home_team_score')->get()->toArray();
+        $home_matches = $team->home_matches()
+                        ->whereColumn('home_team_score', $operator, 'guest_team_score')
+                        ->get()
+                        ->toArray();
+
+        $guest_matches = $team->guest_matches()
+                        ->whereColumn('guest_team_score', $operator, 'home_team_score')
+                        ->get()
+                        ->toArray();
+
         return sizeof(array_merge($home_matches, $guest_matches));
     }
 
