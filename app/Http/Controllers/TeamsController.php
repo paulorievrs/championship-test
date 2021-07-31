@@ -20,16 +20,19 @@ class TeamsController extends Controller
         ];
     }
 
-    private function removeTeamsThatHasMaximumMatches(object $teams, int $max = 38): object
+    private function removeTeamsThatHasMaximumMatches(object $teams, int $max = 38): array
     {
+        $filteredTeams = [];
         foreach ($teams as $team) {
             $matchesCount = $this->repository->getTeamMatchesCount($team);
-            if($matchesCount >= $max) {
-                unset($team);
+            if($matchesCount < $max) {
+                unset($team->home_matches);
+                unset($team->guest_matches);
+                $filteredTeams[] = $team;
             }
         }
 
-        return $teams;
+        return $filteredTeams;
     }
 
     public function getTeamsTable(): array

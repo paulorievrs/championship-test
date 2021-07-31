@@ -54,13 +54,13 @@ const createMatch = () => {
         }
     });
 
-    const insertModal = $("#inset-model");
-    insertModal.hide();
+    const closeBtn = $("#insert-modal .btn-close");
+    closeBtn.click();
 
     guestTeamScore.val("");
     homeTeamScore.val("");
 
-
+    getTeamsForSelect();
     getTableTeams();
 
 
@@ -121,18 +121,26 @@ const getTableTeams = () => {
 }
 
 getTableTeams();
+const getTeamsForSelect = () => {
+    $.ajax({
+        url: 'teams/select',
+        type: 'GET',
+        dataType: 'json',
+        success: function(res) {
+            const teams = res.teams.map(({ name, id }) => `<option value="${id}">${name}</option>`);
 
-$.ajax({
-    url: 'teams/select',
-    type: 'GET',
-    dataType: 'json',
-    success: function(res) {
-        const teams = res.teams.map(({ name, id }) => `<option value="${id}">${name}</option>`);
+            home_teams = res.teams;
+            guest_teams = res.teams;
 
-        home_teams = res.teams;
-        guest_teams = res.teams;
+            const _selectHomeTeams = [ `<option selected>Time da casa</option>`, ...teams ];
+            const _selectGuestTeams = [ `<option selected>Visitante</option>`, ...teams ];
 
-        selectHomeTeams.append(teams);
-        selectGuestTeams.append(teams);
-    }
-});
+            selectHomeTeams.html(_selectHomeTeams);
+            selectGuestTeams.html(_selectGuestTeams);
+        }
+    });
+}
+
+getTeamsForSelect();
+
+
