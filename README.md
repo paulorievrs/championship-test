@@ -1,62 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Sobre o projeto
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Foi criada uma aplicação para o Processo Seletivo | Spot b - HUB de tecnologia educacional do Bernoulli
 
-## About Laravel
+A aplicação funciona basicamente para registro de partidas de futebol de um cameponato com algumas regras de negocio.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<hr>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Como iniciar o projeto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para utilizar o projeto deve-se ter previamente instalado em sua máquina:
+- **[Php](https://www.php.net/downloads.php)**
+- **[Composer](https://getcomposer.org/)**
+- **[Mysql](https://www.mysql.com/)** (ou qualquer outro banco de dados, mas com suas devidas adaptações no arquivo .env)
+- **[Git](https://git-scm.com/downloads)**
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Para baixar o projeto utilize em seu terminal:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+``
+    $ git clone https://github.com/paulorievrs/championship-test
+``
 
-## Laravel Sponsors
+Após a finalização utilize o seguinte comando para entrar na pasta do projeto:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+``
+    $ cd championship-test
+``
 
-### Premium Partners
+Ao entrar na pasta baixe as dependências do projeto:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+``
+    $ composer install
+``
 
-## Contributing
+Após a instalação utilize:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+``
+    $ cp .env.example .env
+``
 
-## Code of Conduct
+Abra o arquivo .env que foi copiado do exemplo e o preencha com as informações do seu banco de dados.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Gere uma key para a aplicação:
 
-## Security Vulnerabilities
+``
+   $ php artisan key:generate
+``
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Popule o banco de dados com dados de times aleátorios
 
-## License
+``
+    $ php artisan db:seed
+``
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Rode o projeto:
+
+``
+  $ php artisan serve
+``
+
+Acesse a aplicação em: http://localhost:8000
+
+<hr>
+
+## Vídeo
+
+Um vídeo da aplicação está disponível em: https://youtube.com
