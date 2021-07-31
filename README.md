@@ -4,7 +4,6 @@ Foi criada uma aplicação para o Processo Seletivo | Spot b - HUB de tecnologia
 
 A aplicação funciona basicamente para registro de partidas de futebol de um cameponato com algumas regras de negocio.
 
-<hr>
 
 ## Como iniciar o projeto
 
@@ -61,7 +60,6 @@ Rode o projeto:
 
 Acesse a aplicação em: http://localhost:8000
 
-<hr>
 
 ## Vídeo
 
