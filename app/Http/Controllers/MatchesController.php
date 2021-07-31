@@ -16,7 +16,12 @@ class MatchesController extends Controller
         $this->teamRepository = $teamRepository;
     }
 
-    public function createMatch(CreateMatchRequest $request)
+    /**
+     * Create a match
+     * @param CreateMatchRequest $request
+     * @return object
+     */
+    public function createMatch(CreateMatchRequest $request): object
     {
         $payload = $request->only([
             'home_team_id',
@@ -34,7 +39,12 @@ class MatchesController extends Controller
 
     }
 
-    private function isDataInvalid(array $data)
+    /**
+     * Verify if the data has valid properties (the two teams must be different and the teams may play maximum of 38 matches)
+     * @param array $data
+     * @return string[]|null
+     */
+    private function isDataInvalid(array $data): ?array
     {
         if($data['home_team_id'] === $data['guest_team_id']) {
             return [
