@@ -74,4 +74,4 @@ Se quiser verificar se está tudo rodando corretamente pode utilizar o comando a
 
 ## Vídeo
 
-Um vídeo da aplicação está disponível em: https://youtube.com
+Um vídeo da aplicação está disponível em: https://youtu.be/rQJ5cDR9yxk
