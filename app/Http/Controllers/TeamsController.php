@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TeamRepository;
+use Illuminate\Http\JsonResponse;
+
 class TeamsController extends Controller
 {
     private $repository;
@@ -13,44 +15,24 @@ class TeamsController extends Controller
 
     /**
      * Get all teams filtering them with the maximum quantity of the matches that they can have
-     * @return array[]
+     * @return JsonResponse
      */
-    public function getTeams(): array
+    public function getTeams(): JsonResponse
     {
         $teams = $this->repository->getAllTeams();
-        $teams = $this->getTeamsThatHaventReachTheLimitOfMatches($teams);
-        return [
+        $teams = $this->repository->getTeamsThatHaventReachTheLimitOfMatches($teams);
+        return response()->json([
             'teams' => $teams
-        ];
+        ]);
     }
 
-    /**
-     * Get the teams that only haven't reached the limit of matches
-     * @param object $teams
-     * @param int $max
-     * @return array
-     */
-    private function getTeamsThatHaventReachTheLimitOfMatches(object $teams, int $max = 38): array
-    {
-        $filteredTeams = [];
-        foreach ($teams as $team) {
-            $matchesCount = $this->repository->getTeamMatchesCount($team);
-            if($matchesCount < $max) {
-                unset($team->home_matches);
-                unset($team->guest_matches);
-                $team->matchesCount = $matchesCount;
-                $filteredTeams[] = $team;
-            }
-        }
 
-        return $filteredTeams;
-    }
 
     /**
      * Get the teams for the main table with their own statistics and sorting them
-     * @return array
+     * @return JsonResponse
      */
-    public function getTeamsTable(): array
+    public function getTeamsTable(): JsonResponse
     {
 
         $teams = $this->repository->getAllTeams();
@@ -94,9 +76,9 @@ class TeamsController extends Controller
             ]
         );
 
-        return [
+        return response()->json([
             'teams' => $teams
-        ];
+        ]);
 
     }
 

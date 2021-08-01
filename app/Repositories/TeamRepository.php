@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Enums\MatchesResultsOperators;
 use App\Models\Team;
+use Illuminate\Database\Eloquent\Collection;
 
 class TeamRepository
 {
@@ -13,9 +14,9 @@ class TeamRepository
 
     /**
      * Get all the teams from the database
-     * @return Team[]|\Illuminate\Database\Eloquent\Collection
+     * @return Team[]|Collection
      */
-    public function getAllTeams()
+    public function getAllTeams(): Collection
     {
         return $this->model->all();
     }
@@ -23,9 +24,9 @@ class TeamRepository
     /**
      * Get how many matches the team played
      * @param Team $team
-     * @return mixed
+     * @return int
      */
-    public function getTeamMatchesCount(Team $team)
+    public function getTeamMatchesCount(Team $team): int
     {
         return $team->matches()->count();
     }
@@ -63,9 +64,9 @@ class TeamRepository
     /**
      * Get how many goals for the team made
      * @param Team $team
-     * @return mixed
+     * @return int
      */
-    public function getGoalsFor(Team $team)
+    public function getGoalsFor(Team $team): int
     {
         $home_matches_goals = $team->home_matches->sum('home_team_score');
         $guest_matches_goals = $team->guest_matches->sum('guest_team_score');
@@ -75,9 +76,9 @@ class TeamRepository
     /**
      * Get how many goals the team has taken
      * @param Team $team
-     * @return mixed
+     * @return int
      */
-    public function getGoalsTaken(Team $team)
+    public function getGoalsTaken(Team $team): int
     {
         $home_matches_goals = $team->home_matches->sum('guest_team_score');
         $guest_matches_goals = $team->guest_matches->sum('home_team_score');
@@ -100,9 +101,9 @@ class TeamRepository
     /**
      * Get how many points the team have
      * @param Team $team
-     * @return float|int
+     * @return int
      */
-    public function getTeamPoints(Team $team)
+    public function getTeamPoints(Team $team): int
     {
         $victories = $this->getTeamVictories($team);
         $draws     = $this->getTeamDraws($team);
@@ -135,8 +136,30 @@ class TeamRepository
         return sizeof(array_merge($home_matches, $guest_matches));
     }
 
-    public function find(int $id)
+    public function find(int $id): Team
     {
         return $this->model->find($id);
+    }
+
+    /**
+     * Get the teams that only haven't reached the limit of matches
+     * @param object $teams
+     * @param int $max
+     * @return array
+     */
+    public function getTeamsThatHaventReachTheLimitOfMatches(object $teams, int $max = 38): array
+    {
+        $filteredTeams = [];
+        foreach ($teams as $team) {
+            $matchesCount = $this->getTeamMatchesCount($team);
+            if($matchesCount < $max) {
+                unset($team->home_matches);
+                unset($team->guest_matches);
+                $team->matchesCount = $matchesCount;
+                $filteredTeams[] = $team;
+            }
+        }
+
+        return $filteredTeams;
     }
 }
