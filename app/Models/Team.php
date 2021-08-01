@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Team extends Model
 {
@@ -16,12 +17,12 @@ class Team extends Model
       'logo'
     ];
 
-    public function home_matches()
+    public function home_matches(): HasMany
     {
         return $this->hasMany(Match::class, 'home_team_id');
     }
 
-    public function guest_matches()
+    public function guest_matches(): HasMany
     {
         return $this->hasMany(Match::class, 'guest_team_id');
     }
